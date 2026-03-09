@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joshua M. Uebelherr, PhD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:         #0d1f2d;
+      --surface:    #162e40;
+      --surface2:   #1c3a50;
+      --blue:       #2e86c1;
+      --blue-light: #5aafe0;
+      --blue-pale:  #a8d4f0;
+      --green:      #3aad72;
+      --green-light:#62d699;
+      --text:       #dce9f4;
+      --text-dim:   #7fa8c4;
+      --rule:       #1e4060;
+      --white:      #f0f8ff;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 15% 10%, rgba(46,134,193,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 65% at 88% 85%, rgba(58,173,114,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse 90% 90% at 50% 50%, #0d1f2d 0%, #091520 100%);
+      z-index: -1;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(46,134,193,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,134,193,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      z-index: -1;
+    }
+
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 80px 40px 100px;
+    }
+
+    /* ── Header ── */
+    header {
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+    }
+
+    .label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .label::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--green);
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--white);
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--blue-light);
+    }
+
+    .rule {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, var(--blue), var(--green), transparent);
+      margin: 32px 0;
+      opacity: 0.5;
+    }
+
+    /* ── Interest Cards ── */
+    .interests {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+    }
+
+    .interests-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      list-style: none;
+    }
+
+    .interests-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      padding: 16px 22px;
+      border: 1px solid var(--rule);
+      background: var(--surface);
+      color: var(--text-dim);
+      transition: border-color 0.3s, color 0.3s, background 0.3s, transform 0.25s, box-shadow 0.3s;
+      cursor: default;
+    }
+
+    .interests-list li:hover {
+      background: var(--surface2);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    /* Climate Change — blue hover */
+    .interests-list li:nth-child(1):hover {
+      border-color: var(--blue-light);
+      color: var(--blue-pale);
+    }
+    /* Air Quality — green hover */
+    .interests-list li:nth-child(2):hover {
+      border-color: var(--green-light);
+      color: var(--green-light);
+    }
+    /* Public Policy — blue hover */
+    .interests-list li:nth-child(3):hover {
+      border-color: var(--blue-light);
+      color: var(--blue-pale);
+    }
+
+    .interest-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+    }
+
+    /* ── Biography ── */
+    .bio-section {
+      margin-top: 68px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .section-header h2 {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    .section-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .bio-text p {
+      font-size: 1.12rem;
+      line-height: 1.85;
+      color: #b8d0e4;
+      font-weight: 300;
+      margin-bottom: 1.5em;
+    }
+
+    .bio-text p:last-child { margin-bottom: 0; }
+
+    .bio-text p strong {
+      font-weight: 600;
+      color: var(--blue-pale);
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 80px;
+      padding-top: 28px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0;
+      animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.8s forwards;
+    }
+
+    footer span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      opacity: 0.6;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      opacity: 0.5;
+    }
+
+    /* ── Dashboard Link ── */
+    .dashboard-link {
+      margin-top: 56px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
+    }
+
+    .dashboard-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      padding: 16px 28px;
+      color: var(--blue-pale);
+      background: var(--surface);
+      border: 1px solid var(--blue);
+      transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.25s, box-shadow 0.3s;
+    }
+
+    .dashboard-btn:hover {
+      background: var(--surface2);
+      border-color: var(--green-light);
+      color: var(--green-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(46,134,193,0.2);
+    }
+
+    .dashboard-btn .arrow-icon {
+      margin-left: 4px;
+      transition: transform 0.25s;
+    }
+
+    .dashboard-btn:hover .arrow-icon {
+      transform: translateX(4px);
+    }
+
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 560px) {
+      .page { padding: 56px 24px 72px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+      .dot { display: none; }
+      .interests-list { gap: 10px; }
+      .interests-list li { padding: 14px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <header>
+      <p class="label">Academic · Researcher · Practitioner</p>
+      <h1>Joshua M.<br>Uebelherr, <em>PhD</em></h1>
+      <div class="rule"></div>
+    </header>
+
+    <section class="interests" aria-label="Research Interests">
+      <ul class="interests-list">
+
+        <!-- Climate Change: sun + rising temperature wave -->
+        <li>
+          <svg class="interest-icon" viewBox="0 0 24 24" fill="none" stroke="#5aafe0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="8.5" r="3.2"/>
+            <line x1="12" y1="2" x2="12" y2="3.8"/>
+            <line x1="18.2" y1="4.3" x2="16.9" y2="5.5"/>
+            <line x1="20.5" y1="8.5" x2="18.7" y2="8.5"/>
+            <line x1="18.2" y1="12.7" x2="16.9" y2="11.5"/>
+            <line x1="5.8" y1="4.3" x2="7.1" y2="5.5"/>
+            <line x1="3.5" y1="8.5" x2="5.3" y2="8.5"/>
+            <line x1="5.8" y1="12.7" x2="7.1" y2="11.5"/>
+            <path d="M3 18 Q5.5 15.5 8 18 Q10.5 20.5 13 18 Q15.5 15.5 18 18 Q20 20 21 18" stroke="#62d699" stroke-width="1.4" fill="none"/>
+          </svg>
+          Climate Change
+        </li>
+
+        <!-- Air Quality: flowing wind lines + small particles -->
+        <li>
+          <svg class="interest-icon" viewBox="0 0 24 24" fill="none" stroke="#62d699" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 7.5 Q6 5.5 10 7.5 Q13 9 15.5 7.5 Q17.5 6.2 18 5"/>
+            <path d="M2 12 Q7 9.5 13 12 Q16 13.2 18.5 12"/>
+            <path d="M2 16.5 Q5.5 14 9 16.5 Q11.5 18.2 14 16.5 Q16 15 16.5 13.5"/>
+            <circle cx="20.5" cy="12" r="1" fill="#62d699" stroke="none"/>
+            <circle cx="20" cy="7.5" r="0.8" fill="#5aafe0" stroke="none"/>
+            <circle cx="19" cy="16" r="0.7" fill="#62d699" stroke="none"/>
+          </svg>
+          Air Quality
+        </li>
+
+        <!-- Public Policy: classical building / columns -->
+        <li>
+          <svg class="interest-icon" viewBox="0 0 24 24" fill="none" stroke="#5aafe0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <!-- dome / pediment -->
+            <polyline points="4,9 12,3 20,9"/>
+            <!-- columns -->
+            <line x1="6.5" y1="9" x2="6.5" y2="18"/>
+            <line x1="10.5" y1="9" x2="10.5" y2="18"/>
+            <line x1="13.5" y1="9" x2="13.5" y2="18"/>
+            <line x1="17.5" y1="9" x2="17.5" y2="18"/>
+            <!-- base -->
+            <line x1="3" y1="18" x2="21" y2="18"/>
+            <line x1="2" y1="20" x2="22" y2="20"/>
+          </svg>
+          Public Policy
+        </li>
+
+      </ul>
+    </section>
+
+    <section class="bio-section" aria-label="Biography">
+      <div class="section-header">
+        <h2>Biography</h2>
+      </div>
+      <div class="bio-text">
+        <p>
+          I hold a <strong>BA with a dual major in Biology and Environmental Conservation: Climatology</strong>,
+          followed by an <strong>MSc in Ecology from Duke University</strong>. In 2017, I completed my
+          <strong>PhD in Public Administration and Policy</strong> at Arizona State University's School of
+          Public Affairs. My dissertation, <em>Examining Hazard Governance from a Complex Systems Perspective</em>,
+          explored extreme heat risk reduction through the operation of cooling centers within the Maricopa
+          County Heat Relief Network. This work integrated qualitative interviews with network managers and
+          organizers alongside quantitative agent-based modeling to assess system dynamics and governance structures.
+        </p>
+        <p>
+          Since 2018, I have been a <strong>Faculty Associate at ASU and Grand Canyon University</strong>,
+          teaching undergraduate and graduate courses in public administration. I previously served nearly
+          five years as a <strong>Senior Air Quality Planner with the Maricopa County Air Quality Department</strong>,
+          focusing on emissions inventories and leading special projects to reduce air pollution. Later, as the
+          <strong>City of Phoenix Climate Program Manager</strong>, I led development of the city's Climate
+          Action Plan. In this role, I prioritized and implemented policies and programs to reduce greenhouse
+          gas emissions, strengthen climate adaptation efforts, and ensure that environmental justice
+          considerations were embedded throughout.
+        </p>
+      </div>
+    </section>
+
+    <section class="dashboard-link" aria-label="Educational Dashboard">
+      <a href="https://uebelherr.github.io/climate-heat-model/" target="_blank" rel="noopener noreferrer" class="dashboard-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="3" width="20" height="14" rx="2"/>
+          <line x1="8" y1="21" x2="16" y2="21"/>
+          <line x1="12" y1="17" x2="12" y2="21"/>
+          <polyline points="7 9 10 12 14 8 17 11"/>
+        </svg>
+        Educational Dashboard: Climate and Heat Models
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="arrow-icon">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="13 6 19 12 13 18"/>
+        </svg>
+      </a>
+    </section>
+
+    <footer>
+      <span>Joshua M. Uebelherr, PhD</span>
+      <div class="dot"></div>
+      <span>Arizona State University</span>
+    </footer>
+
+  </main>
+</body>
+</html>
