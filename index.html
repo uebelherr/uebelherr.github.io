@@ -359,6 +359,24 @@
       .interests-list li { padding: 14px 16px; }
     }
   </style>
+
+  <style>
+    /* ── Page Transition ── */
+    body {
+      animation: pageFadeIn 0.5s ease forwards;
+    }
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    body.fade-out {
+      animation: pageFadeOut 0.4s ease forwards;
+    }
+    @keyframes pageFadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-12px); }
+    }
+  </style>
 </head>
 <body>
   <main class="page">
@@ -456,7 +474,7 @@
     </section>
 
     <div class="buttons-container">
-      <a href="https://uebelherr.github.io/climate-heat-model-Spring2025/" target="_blank" rel="noopener noreferrer" class="dashboard-btn">
+      <a href="https://uebelherr.github.io/climate-heat-model-Spring2025/" class="dashboard-btn">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <rect x="2" y="3" width="20" height="14" rx="2"/>
           <line x1="8" y1="21" x2="16" y2="21"/>
@@ -479,5 +497,19 @@
     </footer>
 
   </main>
+  <script>
+    // Fade-out transition before navigating away (same-window links only)
+    document.querySelectorAll('a:not([target="_blank"])').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var href = this.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('mailto:')) return;
+        e.preventDefault();
+        document.body.classList.add('fade-out');
+        setTimeout(function() {
+          window.location.href = href;
+        }, 380);
+      });
+    });
+  </script>
 </body>
 </html>
