@@ -510,6 +510,14 @@
         }, 380);
       });
     });
+
+    // When user hits the back button, restore the page from bfcache visibly
+    window.addEventListener('pageshow', function(e) {
+      document.body.classList.remove('fade-out');
+      document.body.style.animation = 'none';
+      document.body.offsetHeight; // force reflow
+      document.body.style.animation = '';
+    });
   </script>
 </body>
 </html>
